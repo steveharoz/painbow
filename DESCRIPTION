@@ -1,7 +1,7 @@
 Package: painbow
 Type: Package
 Title: Use XKCD's "Painbow" Colormap in GGplot2
-Version: 0.1.0
+Version: 1.0.0
 Author: Steve Haroz
 Maintainer: Steve Haroz <steve.haroz@gmail.com>
 Description: XKCD described a supposedly "bad" colormap that it called a "Painbow" (see https://xkcd.com/2537/). But simple tests demonstrate that under some circumstances, the colormap can perform very well, and people can find information that is difficult to detect with the ggplot2 default and even supposedly "good" colormaps like viridis. This library let's you use the Painbow in your own ggplot graphs.

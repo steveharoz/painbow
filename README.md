@@ -20,12 +20,8 @@ commonly cited “good” colormaps like viridis.
 
 You can install the latest development version:
 
-``` r
-install.packages("devtools")
-#> Installing devtools [2.4.2] ...
-#>  OK [linked cache]
-#devtools::install_github("steveharoz/painbow")
-```
+    install.packages("devtools")
+    devtools::install_github("steveharoz/painbow")
 
 ## Examples
 
@@ -48,7 +44,7 @@ ggplot(faithfuld) +
   labs(title = "Can you find the most dense region?")
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
 
 ### Painbow may help you find outliers
 
@@ -89,7 +85,7 @@ ggplot(data) +
     theme = theme(text = element_text(size=20)))
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
 ### Painbow can help you spot a subtle pattern among data with high dynamic range
 
@@ -107,7 +103,7 @@ data = tibble(
 ggplot(data) +
   aes(x = x, y=x) + 
   geom_line() +
-  labs(title = "line: y=x") + 
+  labs(title = "y = x") + 
   theme_void(15) + theme(legend.text = element_blank()) +
   
 ggplot(data) +
@@ -134,7 +130,7 @@ ggplot(data) +
 ggplot(data) +
   aes(x = x, y=y) + 
   geom_line() +
-  labs(title = "line: y=x + harmonic") +
+  labs(title = "y = x + sine wave") +
   theme_void(15) + theme(legend.text = element_blank()) +
   
 ggplot(data) +
@@ -163,7 +159,7 @@ ggplot(data) +
     theme = theme(text = element_text(size=20)))
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 ## Feedback, issues, and contributions
 
@@ -176,5 +172,5 @@ file an issue or pull request at
 The XKCD comic deserves credit: <https://xkcd.com/2537/>
 
 Please cite this library via:  
-Steve Haroz (2021). Painbow. R package version 0.1.0,
+Steve Haroz (2021). Painbow. R package version 1.0.0,
 <https://github.com/steveharoz/painbow/>.

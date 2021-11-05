@@ -30,9 +30,9 @@ Painbow lets you use [XKCD's "painbow" colormap](https://xkcd.com/2537/) in ggpl
 ## Installation
 
 You can install the latest development version:
-```{r}
+```
 install.packages("devtools")
-#devtools::install_github("steveharoz/painbow")
+devtools::install_github("steveharoz/painbow")
 ```
 
 ## Examples
@@ -110,7 +110,7 @@ data = tibble(
 ggplot(data) +
   aes(x = x, y=x) + 
   geom_line() +
-  labs(title = "line: y=x") + 
+  labs(title = "y = x") + 
   theme_void(15) + theme(legend.text = element_blank()) +
   
 ggplot(data) +
@@ -137,7 +137,7 @@ ggplot(data) +
 ggplot(data) +
   aes(x = x, y=y) + 
   geom_line() +
-  labs(title = "line: y=x + harmonic") +
+  labs(title = "y = x + sine wave") +
   theme_void(15) + theme(legend.text = element_blank()) +
   
 ggplot(data) +
