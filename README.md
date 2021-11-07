@@ -38,7 +38,7 @@ library(patchwork) # combine multiple graphs
 ``` r
 ggplot(faithfuld) +
   aes(waiting, eruptions, fill = density) +
-  geom_raster() +
+  geom_raster(interpolate = TRUE) +
   scale_fill_painbow() +
   labs(title = "Can you find the most dense region?")
 ```
@@ -47,20 +47,20 @@ ggplot(faithfuld) +
 
 ### Reproducing the figure in the comic
 
-The dataset is called `painbow_data`. It is rather large to avoid a
-pixelated images.
+The dataset is called `painbow_data`. It was made using the comic’s
+image and a lookup table.
 
 ``` r
 myplot = ggplot(painbow_data) +
   aes(x, y, fill = value) +
-  geom_raster() +
+  geom_raster(interpolate = TRUE) +
   scale_x_continuous(expand=c(0,0)) +
   scale_y_continuous(expand=c(0,0)) +
   coord_fixed() +
   guides(fill = guide_colorbar(
     barheight = 12, draw.ulim = TRUE, draw.llim = TRUE, frame.colour = "black", ticks = FALSE)) +
   labs(
-    x = expression(paste(theta, "(PHASE)")), 
+    x = expression(paste(theta, " (PHASE)")), 
     y = expression(lambda),
     fill = "PEAK\nENERGY") +
   theme_classic(16) + 

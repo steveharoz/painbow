@@ -1,6 +1,6 @@
 #' A 2D heatmap from XKCD's painbow comic
 #'
-#' @format A data frame with 5,788,721 rows and 3 variables:
+#' @format A data frame with 58,425 rows and 3 variables:
 #' \describe{
 #'   \item{x}{x-axis position}
 #'   \item{y}{y-axis position}

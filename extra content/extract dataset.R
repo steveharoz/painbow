@@ -146,63 +146,63 @@ painbow_data = painbow_data %>% select(x, y, value)
 # test
 ggplot(painbow_data) +
   aes(x, y, fill = value) +
-  geom_tile() +
+  geom_raster(interpolate = TRUE) +
   scale_fill_painbow() +
   theme_classic()
 
 
-#### expand the dataset for smoother rendering
-
-# smooth a dataset for prettier graphs
-# data must have x, y, and value
-interpolate_dataset = function(data, scale=10) {
-  # set up the indices and interpolation levels for lookup
-  expanded = expand.grid(
-    x = (1:(max(data$x) * scale)) / scale,
-    y = (1:(max(data$y) * scale)) / scale) %>%
-    mutate(
-      x_prop = x %% 1.0,
-      y_prop = y %% 1.0,
-      x1 = floor(x) + 1,
-      y1 = floor(y) + 1,
-      x2 = ceiling(x+0.001) + 1,
-      y2 = ceiling(y+0.001) + 1
-    ) %>%
-    filter(x2 <= max(data$x), y2 <= max(data$y))
-
-  # make the original data a nicely indexable matrix
-  painbow_matrix = data %>% arrange(y, x) %>% pivot_wider(id_cols = x, names_from = y) %>% select(-x) %>% as.matrix()
-
-  # 2D lerp
-  lerp2D = function(d) {
-    #print(d)
-        v11 = painbow_matrix[d$x1, d$y1]
-        v12 = painbow_matrix[d$x1, d$y2]
-        v21 = painbow_matrix[d$x2, d$y1]
-        v22 = painbow_matrix[d$x2, d$y2]
-        lo = v11 * (1-d$x_prop) + v21 * d$x_prop
-        hi = v12 * (1-d$x_prop) + v22 * d$x_prop
-        return(lo * (1-d$y_prop) + hi * d$y_prop)
-      }
-
-  # lookup based on the indices and interpolate the values
-  expanded = expanded %>%
-    rowwise() %>%
-    mutate( value = lerp2D(cur_data()) ) %>%
-    ungroup()
-
-  # cleanup
-  expanded = expanded %>% select(x, y, value)
-
-  return(expanded)
-}
-
-# test
-painbow_data = painbow_data %>% interpolate_dataset(scale = 10)
-ggplot(temp) +
-  aes(x, y, fill = value) +
-  geom_raster() +
-  scale_fill_painbow() +
-  theme_classic()
+# #### expand the dataset for smoother rendering
+#
+# # smooth a dataset for prettier graphs
+# # data must have x, y, and value
+# interpolate_dataset = function(data, scale=10) {
+#   # set up the indices and interpolation levels for lookup
+#   expanded = expand.grid(
+#     x = (1:(max(data$x) * scale)) / scale,
+#     y = (1:(max(data$y) * scale)) / scale) %>%
+#     mutate(
+#       x_prop = x %% 1.0,
+#       y_prop = y %% 1.0,
+#       x1 = floor(x) + 1,
+#       y1 = floor(y) + 1,
+#       x2 = ceiling(x+0.001) + 1,
+#       y2 = ceiling(y+0.001) + 1
+#     ) %>%
+#     filter(x2 <= max(data$x), y2 <= max(data$y))
+#
+#   # make the original data a nicely indexable matrix
+#   painbow_matrix = data %>% arrange(y, x) %>% pivot_wider(id_cols = x, names_from = y) %>% select(-x) %>% as.matrix()
+#
+#   # 2D lerp
+#   lerp2D = function(d) {
+#     #print(d)
+#         v11 = painbow_matrix[d$x1, d$y1]
+#         v12 = painbow_matrix[d$x1, d$y2]
+#         v21 = painbow_matrix[d$x2, d$y1]
+#         v22 = painbow_matrix[d$x2, d$y2]
+#         lo = v11 * (1-d$x_prop) + v21 * d$x_prop
+#         hi = v12 * (1-d$x_prop) + v22 * d$x_prop
+#         return(lo * (1-d$y_prop) + hi * d$y_prop)
+#       }
+#
+#   # lookup based on the indices and interpolate the values
+#   expanded = expanded %>%
+#     rowwise() %>%
+#     mutate( value = lerp2D(cur_data()) ) %>%
+#     ungroup()
+#
+#   # cleanup
+#   expanded = expanded %>% select(x, y, value)
+#
+#   return(expanded)
+# }
+#
+# # test
+# painbow_data = painbow_data %>% interpolate_dataset(scale = 10)
+# ggplot(temp) +
+#   aes(x, y, fill = value) +
+#   geom_raster() +
+#   scale_fill_painbow() +
+#   theme_classic()
 
 usethis::use_data(painbow_data, overwrite = TRUE)
