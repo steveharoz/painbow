@@ -30,7 +30,6 @@ Setup:
 ``` r
 library(tidyverse)
 library(painbow)
-library(viridis) # another color scale for comparison
 library(patchwork) # combine multiple graphs
 ```
 
@@ -39,12 +38,41 @@ library(patchwork) # combine multiple graphs
 ``` r
 ggplot(faithfuld) +
   aes(waiting, eruptions, fill = density) +
-  geom_tile() +
+  geom_raster() +
   scale_fill_painbow() +
   labs(title = "Can you find the most dense region?")
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+
+### Reproducing the figure in the comic
+
+The dataset is called `painbow_data`. It is rather large to avoid a
+pixelated images.
+
+``` r
+myplot = ggplot(painbow_data) +
+  aes(x, y, fill = value) +
+  geom_raster() +
+  scale_x_continuous(expand=c(0,0)) +
+  scale_y_continuous(expand=c(0,0)) +
+  coord_fixed() +
+  guides(fill = guide_colorbar(
+    barheight = 12, draw.ulim = TRUE, draw.llim = TRUE, frame.colour = "black", ticks = FALSE)) +
+  labs(
+    x = expression(paste(theta, "(PHASE)")), 
+    y = expression(lambda),
+    fill = "PEAK\nENERGY") +
+  theme_classic(16) + 
+  theme(axis.title.y = element_text(angle = 0, vjust = 0.5), axis.text = element_blank())
+
+myplot + scale_fill_continuous(breaks = seq(0, 120, 20), limits = c(0, 120)) +
+  myplot + scale_fill_viridis_c(breaks = seq(0, 120, 20), limits = c(0, 120)) +
+  myplot + scale_fill_gradientn(breaks = seq(0, 120, 20), limits = c(0, 120), colors = rainbow(255)) +
+  myplot + scale_fill_painbow(breaks = seq(0, 120, 20), limits = c(0, 120))
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
 ### Painbow may help you find outliers
 
@@ -65,18 +93,18 @@ data = expand.grid(
 
 ggplot(data) +
   aes(x=x, y=y, fill=znoise) + 
-  geom_tile(width=1, height=1, color=NA) +
+  geom_raster() +
   labs(title = "ggplot default", fill=NULL) + 
   theme_void(15) + theme(legend.text = element_blank()) +
 ggplot(data) +
   aes(x=x, y=y, fill=znoise) + 
-  geom_tile(width=1, height=1, color=NA) +
-  scale_fill_viridis() +
+  geom_raster() +
+  scale_fill_viridis_c() +
   labs(title = "Viridis", fill=NULL) + 
   theme_void(15) + theme(legend.text = element_blank()) +
 ggplot(data) +
   aes(x=x, y=y, fill=znoise) + 
-  geom_tile(width=1, height=1, color=NA) +
+  geom_raster() +
   scale_fill_painbow() +
   labs(title = "XKCD's colormap", fill=NULL) + 
   theme_void(15) + theme(legend.text = element_blank()) +
@@ -85,7 +113,7 @@ ggplot(data) +
     theme = theme(text = element_text(size=20)))
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 ### Painbow can help you spot a subtle pattern among data with high dynamic range
 
@@ -115,7 +143,7 @@ ggplot(data) +
 ggplot(data) +
   aes(x = x, y=COUNT/2, fill=x) + 
   geom_tile(width=1, height=COUNT, color=NA) +
-  scale_fill_viridis() +
+  scale_fill_viridis_c() +
   labs(title = "viridis") + 
   theme_void(15) + theme(legend.text = element_blank()) +
   
@@ -142,7 +170,7 @@ ggplot(data) +
 ggplot(data) +
   aes(x = x, y=COUNT/2, fill=y) + 
   geom_tile(width=1, height=COUNT, color=NA) +
-  scale_fill_viridis() +
+  scale_fill_viridis_c() +
   labs(title = "viridis") + 
   theme_void(15) + theme(legend.text = element_blank()) +
 
@@ -159,7 +187,7 @@ ggplot(data) +
     theme = theme(text = element_text(size=20)))
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 ## Feedback, issues, and contributions
 

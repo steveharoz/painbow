@@ -3,7 +3,7 @@
 library("png")
 
 #get the image and its size
-colormap_image = readPNG("colormap image.png")
+colormap_image = readPNG("extra content/colormap image.png")
 pixel_count = dim(colormap_image)[1] # image height
 
 # convert the pixel values into rgb hex strings
