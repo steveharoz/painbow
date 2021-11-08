@@ -9,12 +9,15 @@
 Painbow lets you use [XKCD’s “painbow” colormap](https://xkcd.com/2537/)
 in ggplot.
 
-[XKCD](https://xkcd.com/2537/) claimed this colormap is terrible, and
-even called it a “painbow”. However, these examples show that with
+[XKCD](https://xkcd.com/2537/) implied that this colormap is terrible,
+and even called it a “painbow”. However, these examples show that with
 certain tasks and data, this colormap outperforms even some of the most
 commonly cited “good” colormaps like viridis.
 
 ![image](https://imgs.xkcd.com/comics/painbow_award.png)
+
+Here’s a reproduction in ggplot using some custom theming:  
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="43%" />
 
 ## Installation
 
@@ -40,39 +43,18 @@ ggplot(faithfuld) +
   aes(waiting, eruptions, fill = density) +
   geom_raster(interpolate = TRUE) +
   scale_fill_painbow() +
-  labs(title = "Can you find the most dense region?")
-```
-
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
-
-### Reproducing the figure in the comic
-
-The dataset is called `painbow_data`. It was made using the comic’s
-image and a lookup table.
-
-``` r
-myplot = ggplot(painbow_data) +
-  aes(x, y, fill = value) +
-  geom_raster(interpolate = TRUE) +
-  scale_x_continuous(expand=c(0,0)) +
-  scale_y_continuous(expand=c(0,0)) +
-  coord_fixed() +
-  guides(fill = guide_colorbar(
-    barheight = 12, draw.ulim = TRUE, draw.llim = TRUE, frame.colour = "black", ticks = FALSE)) +
-  labs(
-    x = expression(paste(theta, " (PHASE)")), 
-    y = expression(lambda),
-    fill = "PEAK\nENERGY") +
-  theme_classic(16) + 
-  theme(axis.title.y = element_text(angle = 0, vjust = 0.5), axis.text = element_blank())
-
-myplot + scale_fill_continuous(breaks = seq(0, 120, 20), limits = c(0, 120)) +
-  myplot + scale_fill_viridis_c(breaks = seq(0, 120, 20), limits = c(0, 120)) +
-  myplot + scale_fill_gradientn(breaks = seq(0, 120, 20), limits = c(0, 120), colors = rainbow(255)) +
-  myplot + scale_fill_painbow(breaks = seq(0, 120, 20), limits = c(0, 120))
+  labs(title = "Can you find the most dense region?") +
+  theme_bw(18)
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+### The dataset from the comic
+
+The dataset is `painbow_data`. It was made using the comic’s image and a
+scripted lookup table.
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 ### Painbow may help you find outliers
 
@@ -113,7 +95,7 @@ ggplot(data) +
     theme = theme(text = element_text(size=20)))
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 ### Painbow can help you spot a subtle pattern among data with high dynamic range
 
@@ -187,7 +169,7 @@ ggplot(data) +
     theme = theme(text = element_text(size=20)))
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
 ## Feedback, issues, and contributions
 

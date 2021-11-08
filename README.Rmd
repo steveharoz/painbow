@@ -8,6 +8,7 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
+  dev = "ragg_png",
   fig.path = "man/figures/README-",
   fig.width = 12,
   fig.height = 9,
@@ -22,9 +23,66 @@ knitr::opts_chunk$set(
 
 Painbow lets you use [XKCD's "painbow" colormap](https://xkcd.com/2537/) in ggplot. 
 
-[XKCD](https://xkcd.com/2537/) claimed this colormap is terrible, and even called it a "painbow". However, these examples show that with certain tasks and data, this colormap outperforms even some of the most commonly cited "good" colormaps like viridis.  
+[XKCD](https://xkcd.com/2537/) implied that this colormap is terrible, and even called it a "painbow". However, these examples show that with certain tasks and data, this colormap outperforms even some of the most commonly cited "good" colormaps like viridis.  
 
 ![image](https://imgs.xkcd.com/comics/painbow_award.png)
+
+Here's a reproduction in ggplot using some custom theming:  
+```{r echo=FALSE, message=FALSE, warning=FALSE, fig.height=4.5, fig.width=5.5, dpi=300, out.width="43%"}
+library(tidyverse)
+library(painbow)
+library(patchwork) # combine multiple graphs
+library(systemfonts) # register_font()
+set.seed(8675309)
+
+# download.file("http://simonsoftware.se/other/xkcd.ttf", dest="extra content/xkcd/xkcd.ttf", mode="wb")
+register_font("xkcd", "extra content/xkcd/xkcd.ttf")
+
+x_axis = tibble(x = (min(painbow_data$x)-11):max(painbow_data$x+5)) |>
+  mutate(y_original = rnorm(n(), -10, 2)) |>
+  (function(d) {modelr::add_predictions(d, loess(data=d, formula=y_original ~ x, span=.25), "y")})()
+x_ticks = x_axis %>%
+  mutate(tick_length = ifelse((x+11) %% (14*5) == (14*5-1), 8, 4)) %>% 
+  mutate(y2 = y + tick_length) %>% 
+  filter((x+11) %% 14 == 13)
+
+y_axis = tibble(y = (min(painbow_data$y)-11):max(painbow_data$y)) |>
+  mutate(x_original = rnorm(n(), -10, 2)) |>
+  (function(d) {modelr::add_predictions(d, loess(data=d, formula=x_original ~ y, span=.25), "x")})()
+y_ticks = y_axis %>%
+  mutate(x2 = x + 4) %>% 
+  filter((y+11) %% 14 == 13)
+
+ggplot(painbow_data) +
+  aes(x, y) +
+  geom_path(data=x_axis, size=.75) +
+  geom_path(data=y_axis, size=.75) +
+  geom_segment(data=x_ticks, aes(xend=x, yend=y2), size=.75) +
+  geom_segment(data=y_ticks, aes(xend=x2, yend=y), size=.75) +
+  geom_raster(interpolate = TRUE, aes(fill = value)) +
+  scale_x_continuous(expand=c(.01,0)) +
+  scale_y_continuous(expand=c(.01,0)) +
+  scale_fill_painbow(breaks = seq(0, 120, 20), limits = c(0, 120)) +
+  coord_fixed() +
+  guides(fill = guide_colorbar(
+    barheight = 12, barwidth = 1.05, draw.ulim = TRUE, draw.llim = TRUE, frame.colour = "black", frame.linewidth = 2, label.hjust = -0.4, ticks = FALSE, label.theme = element_text(family="xkcd", size = 15))) +
+  labs(
+    title = expression(underline("FIGURE 2")),
+    x = expression(paste(theta, " (PHASE)")),
+    y = expression(lambda),
+    fill = "PEAK\nENERGY") +
+  theme_void(16) +
+  theme(
+    axis.title.x = element_text(),
+    axis.title.y = element_text(angle = 0, vjust = 0.5),
+    axis.text = element_blank(),
+    plot.margin = margin(10,10,10,10),
+    plot.background = element_rect(color="black", size=1.5),
+    text = element_text(family="xkcd", lineheight = .6)) +
+  patchwork::plot_annotation(caption = "EVERY YEAR, DISGRUNTLED SCIENTISTS COMPETE \nFOR THE PAINBOW AWARD FOR *BEST* COLOR SCALE.",
+                             theme = theme(plot.margin = margin(1,1,1,1),
+                                           plot.caption = element_text(family="xkcd", size=19, hjust=0.5)))
+```
 
 
 ## Installation
@@ -51,15 +109,16 @@ ggplot(faithfuld) +
   aes(waiting, eruptions, fill = density) +
   geom_raster(interpolate = TRUE) +
   scale_fill_painbow() +
-  labs(title = "Can you find the most dense region?")
+  labs(title = "Can you find the most dense region?") +
+  theme_bw(18)
 ```
 
 
-### Reproducing the figure in the comic
+### The dataset from the comic
 
-The dataset is called `painbow_data`. It was made using the comic's image and a lookup table.
+The dataset is `painbow_data`. It was made using the comic's image and a scripted lookup table.
 
-```{r}
+```{r echo=FALSE}
 myplot = ggplot(painbow_data) +
   aes(x, y, fill = value) +
   geom_raster(interpolate = TRUE) +
