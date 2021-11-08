@@ -28,7 +28,7 @@ Painbow lets you use [XKCD's "painbow" colormap](https://xkcd.com/2537/) in ggpl
 ![](https://imgs.xkcd.com/comics/painbow_award.png){width=48%}
 
 Here's a reproduction in ggplot using some custom theming:  
-```{r echo=FALSE, message=FALSE, warning=FALSE, fig.height=4.5, fig.width=5.5, dpi=300, out.width="48%"}
+```{r echo=FALSE, message=FALSE, warning=FALSE, fig.height=4.6, fig.width=5.5, dpi=300, out.width="48%"}
 library(tidyverse)
 library(painbow)
 library(patchwork) # combine multiple graphs
@@ -80,7 +80,7 @@ ggplot(painbow_data) +
     plot.background = element_rect(color="black", size=1.5),
     text = element_text(family="xkcd", lineheight = .6)) +
   patchwork::plot_annotation(caption = "EVERY YEAR, DISGRUNTLED SCIENTISTS COMPETE \nFOR THE PAINBOW AWARD FOR *BEST* COLOR SCALE.",
-                             theme = theme(plot.margin = margin(1,1,1,1),
+                             theme = theme(plot.margin = margin(0,0,8,0),
                                            plot.caption = element_text(family="xkcd", size=19, hjust=0.5)))
 ```
 
