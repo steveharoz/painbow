@@ -14,10 +14,10 @@ and even called it a “painbow”. However, these examples show that with
 certain tasks and data, this colormap outperforms even some of the most
 commonly cited “good” colormaps like viridis.
 
-![image](https://imgs.xkcd.com/comics/painbow_award.png)
+<img src="https://imgs.xkcd.com/comics/painbow_award.png" style="width:45.0%" />
 
 Here’s a reproduction in ggplot using some custom theming:  
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="43%" />
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="45%" />
 
 ## Installation
 

@@ -25,10 +25,10 @@ Painbow lets you use [XKCD's "painbow" colormap](https://xkcd.com/2537/) in ggpl
 
 [XKCD](https://xkcd.com/2537/) implied that this colormap is terrible, and even called it a "painbow". However, these examples show that with certain tasks and data, this colormap outperforms even some of the most commonly cited "good" colormaps like viridis.  
 
-![image](https://imgs.xkcd.com/comics/painbow_award.png)
+![](https://imgs.xkcd.com/comics/painbow_award.png){width=45%}
 
 Here's a reproduction in ggplot using some custom theming:  
-```{r echo=FALSE, message=FALSE, warning=FALSE, fig.height=4.5, fig.width=5.5, dpi=300, out.width="43%"}
+```{r echo=FALSE, message=FALSE, warning=FALSE, fig.height=4.5, fig.width=5.5, dpi=300, out.width="45%"}
 library(tidyverse)
 library(painbow)
 library(patchwork) # combine multiple graphs
