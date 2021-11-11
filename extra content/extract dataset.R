@@ -3,6 +3,7 @@
 library("painbow")
 library("png")
 library("tidyverse")
+library("patchwork")
 
 
 #### get the image data
@@ -48,11 +49,12 @@ interpolate_2_colors = function(color1, color2, interpolation) {
 }
 
 # keep this high to make sure no values are skipped
-interpolation_steps = 2
+interpolation_steps = 64
 
 painbow_colors_lerped = tibble(color = painbow_colors) %>%
   mutate(next_color = lead(color)) %>%
   mutate(index = 1:n()) %>%
+  filter(!is.na(next_color)) %>%
   group_by(color, next_color, index) %>%
   # for each row, add additional rows with an interpolation value
   expand(interpolation = seq(0, 1 - 1/interpolation_steps, length.out=interpolation_steps)) %>%
@@ -144,6 +146,11 @@ painbow_data = painbow_data %>% mutate(
 painbow_data = painbow_data %>% select(x, y, value)
 
 # test
+ggplot(painbow_data) +
+  aes(x, y, fill = value) +
+  geom_raster(interpolate = TRUE) +
+  scale_fill_gradientn(colors=c("white", "black", "white", "black", "white", "black", "white", "black")) +
+  theme_classic() +
 ggplot(painbow_data) +
   aes(x, y, fill = value) +
   geom_raster(interpolate = TRUE) +
