@@ -90,9 +90,9 @@ ggplot(data) +
   scale_fill_painbow() +
   labs(title = "XKCD's colormap", fill=NULL) + 
   theme_void(15) + theme(legend.text = element_blank()) +
-  patchwork::plot_annotation(
-    title = "Three colormaps. Same data. Can you spot the weird region?", 
-    theme = theme(text = element_text(size=20)))
+patchwork::plot_annotation(
+  title = "Three colormaps. Same data. Can you spot the weird region?", 
+  theme = theme(text = element_text(size=20)))
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
@@ -109,26 +109,22 @@ data = tibble(
   y = x/COUNT + sin(x/4)/100
 )
 
-### xkcd
 ggplot(data) +
   aes(x = x, y=x) + 
   geom_line() +
   labs(title = "y = x") + 
   theme_void(15) + theme(legend.text = element_blank()) +
-  
 ggplot(data) +
   aes(x = x, y=COUNT/2, fill=x) + 
   geom_tile(width=1, height=COUNT, color=NA) +
   labs(title = "ggplot default") + 
   theme_void(15) + theme(legend.text = element_blank()) +
-  
 ggplot(data) +
   aes(x = x, y=COUNT/2, fill=x) + 
   geom_tile(width=1, height=COUNT, color=NA) +
   scale_fill_viridis_c() +
   labs(title = "viridis") + 
   theme_void(15) + theme(legend.text = element_blank()) +
-  
 ggplot(data) +
   aes(x = x, y=COUNT/2, fill=x) + 
   geom_tile(width=1, height=COUNT, color=NA) +
@@ -136,26 +132,22 @@ ggplot(data) +
   labs(title = "painbow") + 
   theme_void(15) + theme(legend.text = element_blank()) +
 
-
 ggplot(data) +
   aes(x = x, y=y) + 
   geom_line() +
   labs(title = "y = x + sine wave") +
   theme_void(15) + theme(legend.text = element_blank()) +
-  
 ggplot(data) +
   aes(x = x, y=COUNT/2, fill=y) + 
   geom_tile(width=1, height=COUNT, color=NA) +
   labs(title = "ggplot default") + 
   theme_void(15) + theme(legend.text = element_blank()) +
-  
 ggplot(data) +
   aes(x = x, y=COUNT/2, fill=y) + 
   geom_tile(width=1, height=COUNT, color=NA) +
   scale_fill_viridis_c() +
   labs(title = "viridis") + 
   theme_void(15) + theme(legend.text = element_blank()) +
-
 ggplot(data) +
   aes(x = x, y=COUNT/2, fill=y) + 
   geom_tile(width=1, height=COUNT, color=NA) +
@@ -163,8 +155,8 @@ ggplot(data) +
   labs(title = "painbow") +
   theme_void(15) + theme(legend.text = element_blank()) +
 
-  patchwork::plot_layout(ncol=4) +
-  patchwork::plot_annotation(
+patchwork::plot_layout(ncol=4) +
+patchwork::plot_annotation(
     title = "Three colormaps. Same data. Can you spot the harmonic?", 
     theme = theme(text = element_text(size=20)))
 ```
