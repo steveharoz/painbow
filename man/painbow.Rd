@@ -17,24 +17,9 @@ scale_fill_painbow(...)
   \item{...}{ Any arguments are passed to \code{\link[ggplot2:scale_fill_gradientn]{ggplot2:scale_fill_gradientn()}} }
 }
 
-\details{The colors were extracted directly from the colorscale in KXCD's image (https://xkcd.com/2537/).}
-
-\value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
+\details{The colors were extracted directly from the colorscale in XKCD's image (https://xkcd.com/2537/).}
 
 \author{Steve Haroz}
-
-\note{
-%%  ~~further notes~~
-}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
