@@ -8,15 +8,13 @@
 \description{Use XKCD's "Painbow" colormap}
 
 \usage{
-scale_color_painbow()
-scale_colour_painbow()
-scale_fill_painbow()
+scale_color_painbow(...)
+scale_colour_painbow(...)
+scale_fill_painbow(...)
 }
 
 \arguments{
-%%  \item{x}{
-%%     ~~Describe \code{x} here~~
-%%}
+  \item{...}{ Any arguments are passed to \code{\link[ggplot2:scale_fill_gradientn]{ggplot2:scale_fill_gradientn()}} }
 }
 
 \details{The colors were extracted directly from the colorscale in KXCD's image (https://xkcd.com/2537/).}
@@ -46,6 +44,7 @@ See \code{\link[ggplot2:scale_fill_gradientn]{ggplot2:scale_fill_gradientn()}} f
 
 \examples{
 # You can use it for continuous data
+library(ggplot2)
 ggplot(faithfuld) +
   aes(waiting, eruptions, fill = density) +
   geom_tile() +
