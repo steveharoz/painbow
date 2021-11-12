@@ -1,1 +1,23 @@
-exportPattern("^[[:alpha:]]+")
+importFrom("grDevices",
+  "col2rgb",
+  "rgb")
+
+importFrom("stats",
+  "approx")
+  
+importFrom("ggplot2",
+  "scale_fill_gradientn",
+  "scale_color_gradientn")
+
+export(
+  ## color vector
+  "painbow_colors",
+  
+  ## base palette
+  "painbow.colors",
+  
+  ## ggplot2 scales
+  "scale_fill_painbow",
+  "scale_color_painbow",
+  "scale_colour_painbow"
+)
