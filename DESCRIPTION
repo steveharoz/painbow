@@ -1,22 +1,22 @@
 Package: painbow
 Type: Package
-Title: Use XKCD's "Painbow" Colormap in ggplot2
-Version: 1.0.1
+Title: Use XKCD's "Painbow" Colormap in Base and ggplot2 Graphics
+Version: 1.1.0
 Author: Steve Haroz
 Maintainer: Steve Haroz <painbow@steveharoz.com>
-Description: XKCD described a supposedly "bad" colormap that it called a "Painbow" (see <https://xkcd.com/2537/>). But simple tests demonstrate that under some circumstances, the colormap can perform very well, and people can find information that is difficult to detect with the ggplot2 default and even supposedly "good" colormaps like viridis. This library let's you use the Painbow in your own ggplot graphs.
+Description: XKCD described a supposedly "bad" colormap that it called a "Painbow" (see <https://xkcd.com/2537/>). But simple tests demonstrate that under some circumstances, the colormap can perform very well, and people can find information that is difficult to detect with the ggplot2 default and even supposedly "good" colormaps like viridis. This package lets you use the Painbow in your own base and ggplot2 graphics.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-    ggplot2
+    grDevices, stats, ggplot2
 Suggests: 
     knitr,
     patchwork,
     spelling,
     rmarkdown
 Depends: 
-    R (>= 2.10)
+    R (>= 2.10), graphics
 RoxygenNote: 7.1.2
 Language: en-US
 BugReports:	https://github.com/steveharoz/painbow/issues/new
