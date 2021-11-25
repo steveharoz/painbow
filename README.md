@@ -21,7 +21,11 @@ Here’s a reproduction in ggplot using some custom theming:
 
 ## Installation
 
-You can install the latest development version:
+To install the current release version, run:
+
+    install.packages("painbow")
+
+Or you can install the latest development version:
 
     install.packages("devtools")
     devtools::install_github("steveharoz/painbow")
@@ -174,5 +178,5 @@ file an issue or pull request at
 The XKCD comic deserves credit: <https://xkcd.com/2537/>
 
 Please cite this library via:  
-Steve Haroz (2021). Painbow. R package version 1.0.0,
+Steve Haroz (2021). Painbow. R package version 1.0.1,
 <https://github.com/steveharoz/painbow/>.
