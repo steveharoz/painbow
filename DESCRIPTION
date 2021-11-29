@@ -1,6 +1,6 @@
 Package: painbow
 Type: Package
-Title: Use XKCD's "Painbow" Colormap in Base and ggplot2 Graphics
+Title: Use XKCD's "Painbow" Colormap and Dataset in Base and ggplot2 Graphics
 Version: 1.1.0
 Author: Steve Haroz
 Maintainer: Steve Haroz <painbow@steveharoz.com>
