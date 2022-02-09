@@ -14,7 +14,7 @@ and even called it a “painbow”. However, these examples show that with
 certain tasks and data, this colormap outperforms even some of the most
 commonly cited “good” colormaps like viridis.
 
-XKCD's original:
+XKCD's original:  
 <img src="https://imgs.xkcd.com/comics/painbow_award.png" style="width:48.0%" />
 
 A reproduction in with ggplot and the Painbow package using some custom theming:  
